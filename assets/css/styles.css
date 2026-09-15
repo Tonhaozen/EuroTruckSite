@@ -39,6 +39,13 @@
   --color-primary-soft: rgba(255, 196, 0, 0.14);
   --color-bg-deep: #757a78;
 
+  /* Fundo "degradê de estúdio" (aprovado por Anthonny via ferramenta de
+     comparação: variante "Gradiente de estúdio", topo #5c615f, 75% de
+     intensidade, 1160px de altura — #676c6a já é a mistura 75%/25% com
+     --color-bg, pra não precisar de uma camada extra de opacidade real). */
+  --color-bg-gradient-top: #676c6a;
+  --color-bg-gradient-height: 1160px;
+
   /* Ruído SVG bem sutil — aplicado só nas faixas propositalmente escuras
      (topbar/header/contato/rodapé/cookie-banner) via ::before com opacity
      baixa, pra tirar o aspecto "flat design" sem mudar nenhuma cor. */
@@ -63,7 +70,10 @@ body {
   margin: 0;
   font-family: var(--font-base);
   color: var(--color-ink);
-  background: var(--color-bg);
+  /* Degradê fixo no topo do documento (não acompanha o scroll) — simula
+     um fundo de estúdio fotográfico atrás do hero, some no --color-bg
+     sólido de sempre a partir de --color-bg-gradient-height. */
+  background: linear-gradient(180deg, var(--color-bg-gradient-top) 0, var(--color-bg) var(--color-bg-gradient-height));
   line-height: 1.6;
   isolation: isolate;
 }
