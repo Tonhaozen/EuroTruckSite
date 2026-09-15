@@ -1,0 +1,592 @@
+<title>Paleta Euro Truck</title>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+  :root {
+    --tool-bg: #131210;
+    --tool-surface: #1c1a15;
+    --tool-surface-2: #24211a;
+    --tool-line: rgba(255, 255, 255, 0.09);
+    --tool-text: #f2ede2;
+    --tool-muted: #a89e8c;
+    --tool-accent: #ffc400;
+
+    /* Tokens reais do site (assets/css/styles.css) */
+    --brand-yellow: #ffc400;
+    --brand-yellow-dark: #ffd84c;
+    --brand-surface: #f4f1e8;
+    --brand-surface-soft: #eae6da;
+    --brand-ink: #1c1c1c;
+    --brand-muted: #2b2c2b;
+    --brand-line: rgba(0, 0, 0, 0.2);
+    --brand-accent-ink: #332900;
+    --brand-bg-current: #868b89;
+    --brand-placeholder-a: #3a3b3a;
+    --brand-placeholder-b: #202120;
+    --brand-placeholder-ink: #b8b2a8;
+    --brand-font: "Arial Black", "Arial Narrow", Arial, sans-serif;
+
+    --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+    /* Variante ativa do fundo (trocada via JS) */
+    --mock-top: #5c615f;
+    --mock-base: var(--brand-bg-current);
+    --mock-fade: 1160px;
+    --mock-intensity: 1;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    padding-block: 40px 64px;
+    background: var(--tool-bg);
+    color: var(--tool-text);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.55;
+  }
+
+  .wrap {
+    width: min(100% - 32px, 900px);
+    margin-inline: auto;
+  }
+
+  header.tool-head {
+    margin-bottom: 40px;
+  }
+
+  .kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    color: var(--tool-accent);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .kicker::before {
+    content: "";
+    width: 20px;
+    height: 2px;
+    background: var(--tool-accent);
+  }
+
+  h1 {
+    margin: 0 0 12px;
+    font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .tool-head p {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--tool-muted);
+    font-size: 0.98rem;
+  }
+
+  h2 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 20px;
+    color: var(--tool-muted);
+    font-size: 0.9rem;
+    max-width: 62ch;
+  }
+
+  section {
+    margin-bottom: 56px;
+  }
+
+  /* ── CARD DA FERRAMENTA (mockup + controles) ── */
+  .tool-card {
+    border: 1px solid var(--tool-line);
+    border-radius: 14px;
+    background: var(--tool-surface);
+    overflow: hidden;
+  }
+
+  /* ── MOCKUP: réplica fiel do topo do site real ── */
+  .mock {
+    position: relative;
+    isolation: isolate;
+    font-family: var(--brand-font);
+    background: linear-gradient(180deg, var(--mock-top) 0, var(--mock-base) var(--mock-fade));
+  }
+
+  .mock::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--mock-base);
+    opacity: calc(1 - var(--mock-intensity));
+  }
+
+  .mock-topbar,
+  .mock-header {
+    position: relative;
+    isolation: isolate;
+    background: #1a1a1a;
+  }
+
+  .mock-topbar::before,
+  .mock-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--noise);
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .mock-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #b8b2a8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .mock-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .mock-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 9px;
+    background: var(--brand-yellow);
+    color: #141414;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .mock-nav {
+    display: flex;
+    gap: 16px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #f4f1e8;
+  }
+
+  .mock-nav span:first-child {
+    color: var(--brand-yellow);
+  }
+
+  .mock-hero {
+    padding: 44px 24px 56px;
+  }
+
+  .mock-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    color: var(--brand-accent-ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mock-eyebrow::before {
+    content: "";
+    width: 18px;
+    height: 3px;
+    background: var(--brand-yellow);
+  }
+
+  .mock-h1 {
+    margin: 0 0 14px;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--brand-ink);
+  }
+
+  .mock-lede {
+    margin: 0 0 20px;
+    max-width: 46ch;
+    color: var(--brand-muted);
+    font-size: 0.86rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 400;
+  }
+
+  .mock-btn {
+    display: inline-flex;
+    padding: 10px 18px;
+    background: var(--brand-yellow);
+    color: #141414;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+
+  .mock-card {
+    margin-top: 28px;
+    max-width: 220px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--brand-surface);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+  }
+
+  .mock-card-media {
+    aspect-ratio: 5 / 4;
+    background:
+      repeating-linear-gradient(135deg, rgba(255, 196, 0, 0.09) 0 2px, transparent 2px 22px),
+      linear-gradient(160deg, var(--brand-placeholder-a), var(--brand-placeholder-b));
+  }
+
+  .mock-card-banner {
+    padding: 10px 12px 12px;
+    background: var(--brand-yellow);
+  }
+
+  .mock-card-banner strong {
+    display: block;
+    font-size: 0.72rem;
+    color: #141414;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTROLES ── */
+  .controls {
+    padding: 22px 24px 26px;
+    border-top: 1px solid var(--tool-line);
+    background: var(--tool-surface-2);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .variant-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .variant-btn {
+    padding: 9px 14px;
+    border: 1px solid var(--tool-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--tool-text);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+  }
+
+  .variant-btn:hover {
+    border-color: rgba(255, 196, 0, 0.4);
+  }
+
+  .variant-btn.is-active {
+    border-color: var(--tool-accent);
+    background: var(--tool-accent);
+    color: #141210;
+    font-weight: 700;
+  }
+
+  .slider-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px 28px;
+    margin-bottom: 16px;
+  }
+
+  .slider-field label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
+    color: var(--tool-muted);
+  }
+
+  .slider-field output {
+    color: var(--tool-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--tool-accent);
+  }
+
+  .readout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--tool-line);
+    font-size: 0.78rem;
+    color: var(--tool-muted);
+  }
+
+  .readout code {
+    color: var(--tool-text);
+    font-family: "SFMono-Regular", Consolas, monospace;
+  }
+
+  /* ── SWATCHES DOS TOKENS ── */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .swatch {
+    border: 1px solid var(--tool-line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--tool-surface);
+  }
+
+  .swatch-fill {
+    height: 64px;
+  }
+
+  .swatch-body {
+    padding: 10px 12px 12px;
+  }
+
+  .swatch-name {
+    margin: 0 0 2px;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .swatch-hex {
+    margin: 0 0 6px;
+    font-size: 0.74rem;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: var(--tool-muted);
+  }
+
+  .swatch-use {
+    margin: 0;
+    font-size: 0.72rem;
+    color: var(--tool-muted);
+    line-height: 1.4;
+  }
+
+  footer.tool-foot {
+    color: var(--tool-muted);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    .mock-header {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mock-nav {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header class="tool-head">
+    <p class="kicker">Eurotruck — identidade visual</p>
+    <h1>Testando o fundo do site</h1>
+    <p>
+      Réplica ao vivo do topo do site real (topbar, cabeçalho e início do hero) pra comparar direções de fundo —
+      clique pra trocar de variante, e use os controles pra ajustar intensidade e altura do degradê. Estado
+      inicial abaixo já reflete o que está aplicado hoje em <code>assets/css/styles.css</code> (Gradiente de
+      estúdio, topo #5c615f, 100% de intensidade, 1160px de altura). Os tokens de marca (amarelo, tinta,
+      superfícies) continuam intocados em qualquer variante.
+    </p>
+  </header>
+
+  <section>
+    <div class="tool-card">
+      <div class="mock" id="mock">
+        <div class="mock-topbar">
+          <span>Atendimento a todo o Brasil</span>
+          <span>(41) 3656-6193 · comercial@eurotruck.ind.br</span>
+        </div>
+        <div class="mock-header">
+          <span class="mock-logo">EURO TRUCK</span>
+          <nav class="mock-nav">
+            <span>Sobre</span><span>Serviços</span><span>Diferenciais</span><span>Clientes</span><span>Contato</span>
+          </nav>
+        </div>
+        <div class="mock-hero">
+          <p class="mock-eyebrow">Soluções em mobilidade</p>
+          <h2 class="mock-h1">Fornecedor homologado para órgãos públicos e privados</h2>
+          <p class="mock-lede">
+            Desde 2004, a Eurotruck atua na fabricação e transformação de unidades móveis, com ampla experiência
+            no atendimento a prefeituras, órgãos estaduais e autarquias.
+          </p>
+          <span class="mock-btn">Solicitar orçamento</span>
+          <div class="mock-card">
+            <div class="mock-card-media"></div>
+            <div class="mock-card-banner"><strong>Semirreboque</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="variant-row" id="variant-row"></div>
+
+        <div class="slider-grid">
+          <div class="slider-field">
+            <label for="intensity">Intensidade do topo <output id="intensity-out">100%</output></label>
+            <input type="range" id="intensity" min="0" max="100" value="100" />
+          </div>
+          <div class="slider-field">
+            <label for="fade">Altura do degradê <output id="fade-out">1160px</output></label>
+            <input type="range" id="fade" min="300" max="1400" step="20" value="1160" />
+          </div>
+        </div>
+
+        <div class="readout">
+          <span>Topo: <code id="hex-top">#5c615f</code></span>
+          <span>Base: <code id="hex-base">#868b89</code> (Nardo Grey atual, sem mudança)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tokens fixos da marca</h2>
+    <p class="section-note">Esses não mudam em nenhuma variante — amarelo é intocável, o resto é o sistema já em produção.</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#ffc400"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Amarelo</p>
+          <p class="swatch-hex">#ffc400</p>
+          <p class="swatch-use">Cor primária, intocável.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#1c1c1c"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Tinta</p>
+          <p class="swatch-hex">#1c1c1c</p>
+          <p class="swatch-use">Texto principal em fundo claro.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#f4f1e8"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Superfície</p>
+          <p class="swatch-hex">#f4f1e8</p>
+          <p class="swatch-use">Cards e formulários claros.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#332900"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Accent-ink</p>
+          <p class="swatch-hex">#332900</p>
+          <p class="swatch-use">Amarelo como texto legível.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#868b89"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Fundo atual</p>
+          <p class="swatch-hex">#868b89</p>
+          <p class="swatch-use">Nardo Grey — base de toda variante.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-fill" style="background:#1a1a1a"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Faixa escura</p>
+          <p class="swatch-hex">#1a1a1a</p>
+          <p class="swatch-use">Topbar/header/rodapé/contato.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="tool-foot">Ferramenta interna de comparação — não faz parte do site publicado (fica em <code>_nao-publicar/</code>), é só pra bater o olho nas opções.</footer>
+</div>
+
+<script>
+  const variants = [
+    { name: "Grafite quente", top: "#221f1a", intensity: 100 },
+    { name: "Gradiente de estúdio", top: "#5c615f", intensity: 100, active: true },
+    { name: "Concreto industrial", top: "#8f887a", intensity: 100 },
+    { name: "Aço / gunmetal", top: "#7d848a", intensity: 100 },
+  ];
+
+  const mock = document.getElementById("mock");
+  const row = document.getElementById("variant-row");
+  const intensityInput = document.getElementById("intensity");
+  const fadeInput = document.getElementById("fade");
+  const intensityOut = document.getElementById("intensity-out");
+  const fadeOut = document.getElementById("fade-out");
+  const hexTop = document.getElementById("hex-top");
+  const hexBase = document.getElementById("hex-base");
+
+  let currentTop = "#5c615f";
+
+  function applyMock() {
+    mock.style.setProperty("--mock-top", currentTop);
+    mock.style.setProperty("--mock-intensity", intensityInput.value / 100);
+    mock.style.setProperty("--mock-fade", fadeInput.value + "px");
+    intensityOut.textContent = intensityInput.value + "%";
+    fadeOut.textContent = fadeInput.value + "px";
+    hexTop.textContent = currentTop;
+  }
+
+  variants.forEach((v) => {
+    const btn = document.createElement("button");
+    btn.className = "variant-btn" + (v.active ? " is-active" : "");
+    btn.type = "button";
+    btn.textContent = v.name;
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".variant-btn").forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      currentTop = v.top;
+      intensityInput.value = v.intensity;
+      applyMock();
+    });
+    row.appendChild(btn);
+  });
+
+  intensityInput.addEventListener("input", applyMock);
+  fadeInput.addEventListener("input", applyMock);
+
+  applyMock();
+</script>
