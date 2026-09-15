@@ -25,7 +25,25 @@
 
   --font-base: "Arial Black", "Arial Narrow", Arial, sans-serif;
 
-  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.34);
+  /* Escala de elevação — 3 planos (chip/hover leve, card, vitrine/modal)
+     em vez de 1 valor de sombra fixo pro site inteiro. Cria sensação real
+     de profundidade entre camadas, não só contraste de cor. */
+  --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 16px 34px rgba(0, 0, 0, 0.26);
+  --shadow-lg: 0 28px 60px rgba(0, 0, 0, 0.36);
+  --shadow-soft: var(--shadow-lg);
+
+  /* Tons derivados da própria marca (variações de opacidade do amarelo e
+     um cinza mais escuro que o --color-bg) — usados em hover/zebra-stripe,
+     nunca cores novas. */
+  --color-primary-soft: rgba(255, 196, 0, 0.14);
+  --color-bg-deep: #757a78;
+
+  /* Ruído SVG bem sutil — aplicado só nas faixas propositalmente escuras
+     (topbar/header/contato/rodapé/cookie-banner) via ::before com opacity
+     baixa, pra tirar o aspecto "flat design" sem mudar nenhuma cor. */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
   --radius: 6px;
   --container: 1160px;
   --topbar-height: 38px;
@@ -69,6 +87,29 @@ body::after {
   to {
     background-position: -120% 100%;
   }
+}
+
+/* ── GRÃO NAS FAIXAS ESCURAS ──
+   Ruído bem sutil (5% de opacidade) só nas faixas propositalmente escuras
+   do site (topbar/header/contato/rodapé/cookie-banner/formulário das
+   páginas de solução) — cada uma já isola seu próprio contexto de
+   empilhamento (isolation/backdrop-filter/z-index), então o ::before com
+   z-index -1 fica garantido atrás do conteúdo real, na frente só da cor
+   de fundo. */
+.topbar::before,
+.site-header::before,
+.contact-section::before,
+.solucao-contato-wrap::before,
+.site-footer::before,
+.cookie-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: var(--noise);
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 img,
@@ -136,6 +177,8 @@ a:hover {
   --color-muted: #b8b2a8;
   --color-line: rgba(255, 255, 255, 0.12);
   --color-accent-ink: var(--color-primary);
+  position: relative;
+  isolation: isolate;
   min-height: var(--topbar-height);
   background: #1a1a1a;
   border-bottom: 1px solid var(--color-line);
@@ -405,6 +448,9 @@ a:hover {
 }
 
 .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0 0 12px;
   color: var(--color-accent-ink);
   font-family: var(--font-base);
@@ -412,6 +458,17 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Traço amarelo puro (nunca --color-accent-ink) antes do eyebrow — mesmo
+   recurso gráfico em qualquer faixa, clara ou escura, já que é sempre a
+   cor de marca, não o tom ajustado pra contraste de texto. */
+.eyebrow::before {
+  content: "";
+  flex-shrink: 0;
+  width: 22px;
+  height: 3px;
+  background: var(--color-primary);
 }
 
 h1,
@@ -672,13 +729,13 @@ h3 {
   max-width: 420px;
   border-radius: 14px;
   background: var(--color-surface);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--shadow-md);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .service-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .service-card-media {
@@ -737,6 +794,20 @@ h3 {
   height: 100%;
   object-fit: cover;
   display: block;
+  /* Fotos reais vêm de fontes bem diferentes (profissional, WhatsApp,
+     iluminação variada) — um tom levemente dessaturado/dourado unifica
+     tudo sob a mesma identidade; o hover/foco revela a cor cheia como
+     recompensa de interação. Não afeta o lightbox (ver abaixo). */
+  filter: grayscale(0.35) sepia(0.08) contrast(1.04) brightness(0.94);
+  transition: filter 420ms ease;
+}
+
+.service-card:hover .gallery-slide img,
+.service-card:focus-within .gallery-slide img,
+.hero-showcase:hover .hero-showcase-slide img,
+.hero-showcase:focus-within .hero-showcase-slide img,
+.lightbox-stage img {
+  filter: none;
 }
 
 .service-card--gallery:hover .gallery-slide {
@@ -1018,6 +1089,8 @@ h3 {
   --color-muted: #b8b2a8;
   --color-line: rgba(255, 255, 255, 0.12);
   --color-accent-ink: var(--color-primary);
+  position: relative;
+  isolation: isolate;
   align-self: start;
   background: #1a1a1a;
   border-radius: var(--radius);
@@ -1103,6 +1176,8 @@ h3 {
   --color-muted: #b8b2a8;
   --color-line: rgba(255, 255, 255, 0.12);
   --color-accent-ink: var(--color-primary);
+  position: relative;
+  isolation: isolate;
   background: #1a1a1a;
   color: #fff;
 }
@@ -1350,7 +1425,7 @@ h3 {
   border-color: rgba(255, 196, 0, 0.55);
   background: var(--color-surface-soft);
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .client-name {
@@ -1488,7 +1563,7 @@ details[open] > .faq-question .faq-icon {
   border-radius: 14px;
   overflow: hidden;
   background: var(--color-surface);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shadow-md);
 }
 
 .featured-post-media {
@@ -1561,13 +1636,13 @@ details[open] > .faq-question .faq-icon {
   border-radius: 14px;
   overflow: hidden;
   background: var(--color-surface);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow-sm);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .news-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .news-card-media {
@@ -1903,6 +1978,8 @@ details[open] > .faq-question .faq-icon {
   --color-muted: #b8b2a8;
   --color-line: rgba(255, 255, 255, 0.12);
   --color-accent-ink: var(--color-primary);
+  position: relative;
+  isolation: isolate;
   padding-top: 64px;
   background: #1e1e1e;
   color: var(--color-ink);
@@ -2100,6 +2177,22 @@ details[open] > .faq-question .faq-icon {
   .button {
     width: 100%;
   }
+}
+
+/* ── ENTRADA AO ROLAR A PÁGINA ──
+   .reveal só é aplicada via JS (main.js), nunca direto no HTML/CSS — se o
+   JS não rodar por qualquer motivo, nada fica escondido por padrão. Leve
+   variação de atraso por elemento via --reveal-i (mesmo recurso já usado
+   em --i nas galerias). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 640ms ease calc(var(--reveal-i, 0) * 70ms), transform 640ms ease calc(var(--reveal-i, 0) * 70ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {

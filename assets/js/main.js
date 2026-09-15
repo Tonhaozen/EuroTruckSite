@@ -210,3 +210,46 @@ if (lightbox) {
     }
   });
 }
+
+// Entrada suave ao rolar a página (fade + slide-up). A classe "reveal"
+// (que esconde o elemento) só é adicionada aqui, nunca no HTML/CSS — se
+// esse script não rodar por qualquer motivo, nada fica invisível.
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const revealSelector = [
+    ".section-heading",
+    ".service-card",
+    ".metric",
+    ".steps li",
+    ".client-card",
+    ".faq-item",
+    ".featured-post",
+    ".news-card",
+    ".hero-showcase",
+    ".solucao-content-frame",
+    ".solucao-contato-wrap",
+    ".post-header",
+    ".post-body",
+  ].join(", ");
+
+  const revealEls = document.querySelectorAll(revealSelector);
+
+  if (revealEls.length) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    revealEls.forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.setProperty("--reveal-i", i % 6);
+      revealObserver.observe(el);
+    });
+  }
+}
