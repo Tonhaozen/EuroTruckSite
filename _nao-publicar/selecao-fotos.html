@@ -1,0 +1,307 @@
+<title>Fotos — Unidade Móvel e Tec. Digitais</title>
+<style>
+  :root{
+    --bg:#141414;
+    --surface:#1d1d1d;
+    --surface-2:#242424;
+    --line:rgba(255,255,255,0.1);
+    --ink:#f2f0ea;
+    --muted:#a8a49a;
+    --amarelo:#ffc400;
+    --used:#4caf6a;
+    font-family:"Arial Black","Arial Narrow",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#eceae4;
+      --surface:#ffffff;
+      --surface-2:#f4f2ec;
+      --line:rgba(0,0,0,0.12);
+      --ink:#1a1a1a;
+      --muted:#5a564c;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eceae4;
+    --surface:#ffffff;
+    --surface-2:#f4f2ec;
+    --line:rgba(0,0,0,0.12);
+    --ink:#1a1a1a;
+    --muted:#5a564c;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    margin:0;
+    padding:32px 20px 80px;
+  }
+  header{
+    max-width:1180px;
+    margin:0 auto 36px;
+  }
+  h1{
+    font-size:clamp(1.6rem,3vw,2.4rem);
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  header p{
+    color:var(--muted);
+    font-family:Arial,Helvetica,sans-serif;
+    font-weight:400;
+    max-width:70ch;
+    line-height:1.5;
+    margin:0 0 6px;
+  }
+  .legenda{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:18px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:0.85rem;
+    color:var(--muted);
+  }
+  .legenda span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot--amarelo{background:var(--amarelo);}
+  .dot--usado{background:var(--used);}
+
+  section{
+    max-width:1180px;
+    margin:0 auto 52px;
+  }
+  .secao-titulo{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    border-bottom:2px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:20px;
+  }
+  .secao-titulo h2{
+    font-size:1.15rem;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin:0;
+  }
+  .secao-titulo .card-alvo{
+    font-family:Arial,Helvetica,sans-serif;
+    font-weight:400;
+    color:var(--muted);
+    font-size:0.85rem;
+  }
+
+  .grade{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:16px;
+  }
+  figure{
+    margin:0;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    cursor:zoom-in;
+    position:relative;
+  }
+  figure .thumb-wrap{
+    aspect-ratio:4/3;
+    background:var(--surface-2);
+    overflow:hidden;
+  }
+  figure img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .25s ease;
+  }
+  figure:hover img{transform:scale(1.04);}
+  figcaption{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    padding:8px 10px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:0.8rem;
+  }
+  .num{
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+  .badge-usado{
+    background:var(--used);
+    color:#0c1a10;
+    font-size:0.68rem;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  dialog{
+    border:none;
+    background:transparent;
+    padding:0;
+    max-width:92vw;
+    max-height:92vh;
+  }
+  dialog::backdrop{background:rgba(0,0,0,0.82);}
+  dialog img{
+    max-width:92vw;
+    max-height:88vh;
+    display:block;
+    border-radius:4px;
+  }
+  dialog .legenda-modal{
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    text-align:center;
+    padding-top:10px;
+    font-size:0.9rem;
+  }
+
+  footer{
+    max-width:1180px;
+    margin:60px auto 0;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    color:var(--muted);
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:0.85rem;
+    line-height:1.5;
+  }
+</style>
+
+<header>
+  <h1>Seleção de fotos — projetos</h1>
+  <p>Todas as fotos enviadas para os cards <strong>Unidade Móvel</strong> (SMART LAB / Senac Fecomércio Sesc) e <strong>Tecnologias Digitais</strong> (SENAI), organizadas por pasta original. As marcadas em verde já estão publicadas no site hoje; as demais estão disponíveis para trocar ou complementar. Clique numa foto para ampliar.</p>
+  <div class="legenda">
+    <span><span class="dot dot--usado"></span> já publicada no site</span>
+    <span><span class="dot dot--amarelo"></span> disponível, ainda não usada</span>
+  </div>
+</header>
+
+<section id="gestao">
+  <div class="secao-titulo">
+    <h2>TI Gestão — SMART LAB (Senac Fecomércio Sesc)</h2>
+    <span class="card-alvo">card "Unidade Móvel" · 12 fotos</span>
+  </div>
+  <div class="grade" id="grade-gestao"></div>
+</section>
+
+<section id="digitais">
+  <div class="secao-titulo">
+    <h2>TI Digitais — SENAI</h2>
+    <span class="card-alvo">card "Tecnologias Digitais" · 14 fotos</span>
+  </div>
+  <div class="grade" id="grade-digitais"></div>
+</section>
+
+<footer>
+  Me diga pelo número (ex.: "G3, G7, D1, D5, D9") quais fotos você quer manter em cada card — o card mostra 5 fotos numa mini-galeria. As que não forem escolhidas eu apago da pasta <code>fotos/</code> depois da sua confirmação.
+</footer>
+
+<dialog id="modal">
+  <img id="modal-img" src="" alt="">
+  <div class="legenda-modal" id="modal-legenda"></div>
+</dialog>
+
+<script>
+  const ASSET_URLS = {
+    "gestao-1": "/_blob/ae94bcbfb4103af81025b4b454463d07",
+    "gestao-10": "/_blob/c012ec16ba771b282c51cb2c83a31195",
+    "gestao-11": "/_blob/28bc0656da095adc5950d2ecdf824e84",
+    "gestao-2": "/_blob/febf660d5085b118883e311e9c00bada",
+    "gestao-3": "/_blob/15c68ceae47fc41a90d372d677bcbf1f",
+    "gestao-4": "/_blob/69825d4c62fdc1a31d124e9151ce4b73",
+    "gestao-5": "/_blob/87a0ccdb7e7ef947cb1be596d14b2b68",
+    "gestao-6": "/_blob/c38f5359a3daa0fe5f7681cc06c306c0",
+    "gestao-7": "/_blob/de3604709564f7935521fe5001f99ed8",
+    "gestao-8": "/_blob/dc069847af04630b978ffb46ed6a1e74",
+    "gestao-9": "/_blob/503e2d2e1c78e41afb4d217f2de9342c",
+    "gestao-base": "/_blob/9933fd06f43c93ab649603286417ad13",
+    "digitais-1": "/_blob/a32f637f361667397436bb0d5e162914",
+    "digitais-10": "/_blob/b3fbf703043405a78c0cbd7ed5694126",
+    "digitais-11": "/_blob/f93ebe58119a4dbfb6a6bb5b79024ff1",
+    "digitais-12": "/_blob/0da6eb43a27fa5ef3585158dfe0a1e31",
+    "digitais-2": "/_blob/49861e6c42b693785baa224c63656ac5",
+    "digitais-3": "/_blob/0990723152baa578b26e20f76c2af45b",
+    "digitais-4": "/_blob/12cb25c68a27c3b9f21e12a0b8085e6e",
+    "digitais-5": "/_blob/b44de3e522ea0c2c0275c999c8f830d9",
+    "digitais-6": "/_blob/ac82a4310845d9837941f867e79d3295",
+    "digitais-7": "/_blob/3d74e9d794977b103a18eff60da67223",
+    "digitais-8": "/_blob/38ac8846c21a8884ed54e86208c4f2ac",
+    "digitais-9": "/_blob/fd91317d4ab48e4c7afbcc0eaf492258",
+    "digitais-base": "/_blob/fa430b259b14c63d7b72074facb7670d",
+    "digitais-base2": "/_blob/f91badcada3708491d9f0caa41db3eb5",
+  };
+
+  const GESTAO = [
+    {id:"G1",  key:"gestao-1",  usado:false},
+    {id:"G2",  key:"gestao-10", usado:false},
+    {id:"G3",  key:"gestao-11", usado:true, slot:"foto 1"},
+    {id:"G4",  key:"gestao-2",  usado:true, slot:"foto 5"},
+    {id:"G5",  key:"gestao-3",  usado:true, slot:"foto 4"},
+    {id:"G6",  key:"gestao-4",  usado:false},
+    {id:"G7",  key:"gestao-5",  usado:false},
+    {id:"G8",  key:"gestao-6",  usado:false},
+    {id:"G9",  key:"gestao-7",  usado:false},
+    {id:"G10", key:"gestao-8",  usado:false},
+    {id:"G11", key:"gestao-9",  usado:true, slot:"foto 2"},
+    {id:"G12", key:"gestao-base", usado:true, slot:"foto 3"},
+  ];
+
+  const DIGITAIS = [
+    {id:"D1",  key:"digitais-1",  usado:true, slot:"foto 1"},
+    {id:"D2",  key:"digitais-10", usado:true, slot:"foto 5"},
+    {id:"D3",  key:"digitais-11", usado:false},
+    {id:"D4",  key:"digitais-12", usado:false},
+    {id:"D5",  key:"digitais-2",  usado:false},
+    {id:"D6",  key:"digitais-3",  usado:false},
+    {id:"D7",  key:"digitais-4",  usado:false},
+    {id:"D8",  key:"digitais-5",  usado:true, slot:"foto 3"},
+    {id:"D9",  key:"digitais-6",  usado:false},
+    {id:"D10", key:"digitais-7",  usado:false},
+    {id:"D11", key:"digitais-8",  usado:false},
+    {id:"D12", key:"digitais-9",  usado:true, slot:"foto 4"},
+    {id:"D13", key:"digitais-base",   usado:true, slot:"foto 2"},
+    {id:"D14", key:"digitais-base2",  usado:false},
+  ];
+
+  function render(list, mountId){
+    const mount = document.getElementById(mountId);
+    for(const item of list){
+      const fig = document.createElement("figure");
+      fig.innerHTML = `
+        <div class="thumb-wrap">
+          <img src="${ASSET_URLS[item.key] || ''}" alt="Foto ${item.id}" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="num">${item.id}</span>
+          ${item.usado ? `<span class="badge-usado">no site · ${item.slot}</span>` : ""}
+        </figcaption>`;
+      fig.addEventListener("click", () => openModal(item));
+      mount.appendChild(fig);
+    }
+  }
+
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const modalLegenda = document.getElementById("modal-legenda");
+  function openModal(item){
+    modalImg.src = ASSET_URLS[item.key] || "";
+    modalLegenda.textContent = item.id + (item.usado ? ` — já publicada (${item.slot})` : " — disponível");
+    modal.showModal();
+  }
+  modal.addEventListener("click", (e) => { if(e.target === modal) modal.close(); });
+
+  render(GESTAO, "grade-gestao");
+  render(DIGITAIS, "grade-digitais");
+</script>

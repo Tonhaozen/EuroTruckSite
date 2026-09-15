@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow">
+    <title>Erro no servidor | Euro Truck</title>
+    <style>
+      :root {
+        --color-bg: #868b89;
+        --color-ink: #1c1c1c;
+        --color-muted: #2b2c2b;
+        --color-primary: #ffc400;
+        --font-base: "Arial Black", "Arial Narrow", Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        font-family: var(--font-base);
+        background: var(--color-bg);
+        color: var(--color-ink);
+        text-align: center;
+      }
+
+      .box {
+        max-width: 560px;
+      }
+
+      .code {
+        margin: 0;
+        color: var(--color-primary);
+        font-size: clamp(4rem, 14vw, 7rem);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      h1 {
+        margin: 12px 0 0;
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      p {
+        margin: 16px 0 28px;
+        color: var(--color-muted);
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      a.button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 22px;
+        border-radius: 6px;
+        background: var(--color-primary);
+        color: #090909;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+      }
+
+      a.button:hover {
+        background: #ffd84c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <p class="code">500</p>
+      <h1>Erro no servidor</h1>
+      <p>Algo deu errado do nosso lado. Já estamos cientes. Tente novamente em alguns minutos ou volte para a página inicial.</p>
+      <a class="button" href="/">Voltar ao início</a>
+    </div>
+  </body>
+</html>

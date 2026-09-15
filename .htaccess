@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────
+# Euro Truck — configuração Apache (hospedagem Locaweb/cPanel)
+# Site estático (HTML/CSS/JS), com um único endpoint PHP
+# (contato.php) para o envio do formulário de contato.
+# ─────────────────────────────────────────────────────────────
+
+# Páginas de erro com a identidade visual do site
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# Não listar o conteúdo de pastas sem index
+Options -Indexes
+
+# ── Redirecionamento forçado para HTTPS ──
+# Deixe comentado até CONFIRMAR com o provedor que o certificado SSL
+# já está ativo em eurotruck.ind.br. Ativar isso sem SSL configurado
+# gera loop de redirecionamento e derruba o site.
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ── Cabeçalhos de segurança ──
+# (Content-Security-Policy foi deixado de fora de propósito — o site usa
+# atributos style="" inline nas galerias de foto e um <script type="application/ld+json">
+# no <head>; um CSP mal calibrado quebra os dois. Se for adicionar CSP depois,
+# testar com style-src 'unsafe-inline' e liberar o JSON-LD antes de travar script-src.)
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ── Cache para arquivos estáticos ──
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+# ── Compressão ──
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml
+</IfModule>
