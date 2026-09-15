@@ -6,7 +6,7 @@ O site nao depende de instalacao, servidor Node, banco de dados ou build. Para p
 
 ## O que NAO enviar para a hospedagem
 
-A pasta `_nao-publicar/` guarda arquivos internos que nao fazem parte do site ao vivo (rascunhos antigos, logos originais nao usadas, imagens de clientes duplicadas/nao usadas). Nao arraste essa pasta para o FTP/SFTP — envie so o que esta descrito em "Arquivos principais" abaixo. A pasta `.claude/` (config interna do Claude Code) tambem nao deve ser publicada.
+A pasta `_nao-publicar/` guarda arquivos internos que nao fazem parte do site ao vivo (rascunhos antigos, logos originais nao usadas, imagens de clientes duplicadas/nao usadas). Nao arraste essa pasta para o FTP/SFTP — envie so o que esta descrito em "Arquivos principais" abaixo. A pasta `.claude/` (configuracao interna do editor) tambem nao deve ser publicada.
 
 ## Arquivos principais
 
