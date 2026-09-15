@@ -39,12 +39,14 @@
   --color-primary-soft: rgba(255, 196, 0, 0.14);
   --color-bg-deep: #757a78;
 
-  /* Fundo "degradê de estúdio" (aprovado por Anthonny via ferramenta de
-     comparação: variante "Gradiente de estúdio", topo #5c615f, 75% de
-     intensidade, 1160px de altura — #676c6a já é a mistura 75%/25% com
-     --color-bg, pra não precisar de uma camada extra de opacidade real). */
-  --color-bg-gradient-top: #676c6a;
-  --color-bg-gradient-height: 1160px;
+  /* Fundo "degradê de estúdio". Primeira tentativa (topo #5c615f/#676c6a,
+     1160px) ficou fraca demais na página real: os primeiros 114px já são
+     comidos pelo header opaco, e num percurso de 1160px isso é só ~10%
+     do caminho — o que sobra visível mal sai do tom de base. Pra realmente
+     ler como "fundo de estúdio" (não só um chapado com nome diferente):
+     tom bem mais escuro e percurso mais curto, concentrado atrás do hero. */
+  --color-bg-gradient-top: #3f433f;
+  --color-bg-gradient-height: 640px;
 
   /* Ruído SVG bem sutil — aplicado só nas faixas propositalmente escuras
      (topbar/header/contato/rodapé/cookie-banner) via ::before com opacity
